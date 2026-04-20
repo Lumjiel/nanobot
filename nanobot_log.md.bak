@@ -1,0 +1,20 @@
+# 操作日志
+
+## 自动记录
+- [2026-04-02 20:32] videocaptioner | 修复 Whisper 转录问题 | 成功 | 问题：代理干扰模型下载；解决方案：关闭代理 + 安装 imageio[ffmpeg] + 修补 whisper/audio.py 硬编码 ffmpeg 路径。发现 B 站下载的视频没有音频流，需先合并视频和音频文件再转录。
+
+- [2026-04-02 11:28] nanobot | 创建操作日志系统 | 成功 | nanobot_log.py + nanobot_log.json + nanobot_log.md
+
+- [2026-04-02 11:28] nanobot | git push | 成功 | 推送到 jjmk6/nanobot
+
+- [2026-04-02 11:28] nanobot | 修改 context.py | 成功 | 加了 pending lessons 功能
+
+
+
+
+
+
+
+## 手动备注
+
+（杰哥可以在这里写备注）

@@ -138,6 +138,7 @@ class ProvidersConfig(Base):
     openai_codex: ProviderConfig = Field(default_factory=ProviderConfig, exclude=True)  # OpenAI Codex (OAuth)
     github_copilot: ProviderConfig = Field(default_factory=ProviderConfig, exclude=True)  # Github Copilot (OAuth)
     qianfan: ProviderConfig = Field(default_factory=ProviderConfig)  # Qianfan (百度千帆)
+    xiaomimimo: ProviderConfig = Field(default_factory=ProviderConfig)  # Xiaomi MiMo
 
 
 class HeartbeatConfig(Base):

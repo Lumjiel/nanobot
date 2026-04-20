@@ -307,14 +307,23 @@ PROVIDERS: tuple[ProviderSpec, ...] = (
         backend="openai_compat",
         default_api_base="https://api.stepfun.com/v1",
     ),
-    # Xiaomi MIMO (小米): OpenAI-compatible API
+# Xiaomi MiMo: OpenAI-compatible API at api.xiaomimimo.com/v1.
     ProviderSpec(
-        name="xiaomi_mimo",
-        keywords=("xiaomi_mimo", "mimo"),
+        name="xiaomimimo",
+        keywords=("xiaomimimo", "mimo"),
         env_key="XIAOMIMIMO_API_KEY",
-        display_name="Xiaomi MIMO",
-        backend="openai_compat",
-        default_api_base="https://api.xiaomimimo.com/v1",
+        display_name="Xiaomi MiMo",
+        litellm_prefix="",  # OpenAI-compatible, no prefix needed
+        skip_prefixes=(),
+        env_extras=(),
+        is_gateway=False,
+        is_local=False,
+        detect_by_key_prefix="",
+        detect_by_base_keyword="xiaomimimo",
+        default_api_base="https://api.xiaomimo.com/v1",
+        strip_model_prefix=False,
+        model_overrides=(),
+        supports_prompt_caching=True,
     ),
     # === Local deployment (matched by config key, NOT by api_base) =========
     # vLLM / any OpenAI-compatible local server
