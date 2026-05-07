@@ -1022,7 +1022,9 @@ class AgentLoop:
         logger.info("Processing message from {}:{}: {}", msg.channel, msg.sender_id, preview)
 
         key = session_key or msg.session_key
+        logger.debug("[DEBUG] Session key: {} = session_key({}) or msg.session_key({})", key, session_key, msg.session_key)
         session = self.sessions.get_or_create(key)
+        logger.debug("[DEBUG] Session messages count: {}, last_consolidated: {}", len(session.messages), session.last_consolidated)
         mark_webui_session(session, msg.metadata)
         if self._restore_runtime_checkpoint(session):
             self.sessions.save(session)
@@ -1056,6 +1058,7 @@ class AgentLoop:
             "include_timestamps": True,
         }
         history = session.get_history(**_hist_kwargs)
+        logger.debug("[DEBUG] get_history returned {} messages", len(history))
 
         pending_ask_id = pending_ask_user_id(history)
         if pending_ask_id:
@@ -1144,10 +1147,12 @@ class AgentLoop:
         # Skip the already-persisted user message when saving the turn
         save_skip = 1 + len(history) + (1 if user_persisted_early else 0)
         self._save_turn(session, all_msgs, save_skip)
+        logger.debug("[DEBUG] After _save_turn: session messages count: {}", len(session.messages))
         session.enforce_file_cap(on_archive=self.context.memory.raw_archive)
         self._clear_pending_user_turn(session)
         self._clear_runtime_checkpoint(session)
         self.sessions.save(session)
+        logger.debug("[DEBUG] After sessions.save: session messages count: {}", len(session.messages))
         self._schedule_background(self.consolidator.maybe_consolidate_by_tokens(session))
 
         # When follow-up messages were injected mid-turn, a later natural

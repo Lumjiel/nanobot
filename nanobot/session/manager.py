@@ -320,6 +320,10 @@ class SessionManager:
                     else:
                         messages.append(data)
 
+            if last_consolidated > len(messages):
+                logger.warning("Session {} has invalid last_consolidated {} > {}, resetting to 0", key, last_consolidated, len(messages))
+                last_consolidated = 0
+
             return Session(
                 key=key,
                 messages=messages,
